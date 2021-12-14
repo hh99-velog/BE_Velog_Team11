@@ -2,6 +2,8 @@ package com.example.be_velog_team11.service;
 
 import com.example.be_velog_team11.dto.BoardRequestDto;
 import com.example.be_velog_team11.dto.BoardResponseDto;
+import com.example.be_velog_team11.exception.ErrorNotFoundBoardException;
+import com.example.be_velog_team11.exception.ErrorUtils.ErrorCode;
 import com.example.be_velog_team11.model.Board;
 import com.example.be_velog_team11.model.User;
 import com.example.be_velog_team11.repository.BoardRepository;
@@ -52,7 +54,7 @@ public class BoardService {
     public BoardResponseDto findBoard(Long board_id) {
         // board_id 조회
         Board findBoard = boardRepository.findById(board_id).orElseThrow(
-                () -> new IllegalArgumentException("게시글이 존재하지 않습니다")
+                () -> new ErrorNotFoundBoardException(ErrorCode.ERROR_BOARD_ID)
         );
 
         // Response Dto 반환
@@ -78,12 +80,12 @@ public class BoardService {
     ) throws IOException {
         // board_id 조회
         Board findBoard = boardRepository.findById(board_id).orElseThrow(
-                () -> new IllegalArgumentException("게시글이 존재하지 않습니다")
+                () -> new ErrorNotFoundBoardException(ErrorCode.ERROR_BOARD_ID)
         );
 
         // 사용자 조회 (작성자와 수정자가 같은지 확인)
         if (!findBoard.getUser().getId().equals(user.getId())) {
-            throw new IllegalArgumentException("작성자와 수정자가 다릅니다");
+            throw new ErrorNotFoundBoardException(ErrorCode.ERROR_NOTMATCH_MODIFY);
         }
 
         String imgUrl = "";
@@ -108,12 +110,12 @@ public class BoardService {
     ) {
         // board_id 조회
         Board findBoard = boardRepository.findById(board_id).orElseThrow(
-                () -> new IllegalArgumentException("게시글이 존재하지 않습니다")
+                () -> new ErrorNotFoundBoardException(ErrorCode.ERROR_BOARD_ID)
         );
 
         // 사용자 조회 (작성자와 수정자가 같은지 확인)
         if (!findBoard.getUser().getId().equals(user.getId())) {
-            throw new IllegalArgumentException("작성자와 삭제가 다릅니다");
+            throw new ErrorNotFoundBoardException(ErrorCode.ERROR_NOTMATCH_DELETE);
         }
 
         // Board DB 삭제
