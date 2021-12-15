@@ -7,6 +7,7 @@ import com.example.be_velog_team11.exception.ErrorUtils.ErrorCode;
 import com.example.be_velog_team11.model.Board;
 import com.example.be_velog_team11.model.User;
 import com.example.be_velog_team11.repository.BoardRepository;
+import com.example.be_velog_team11.repository.LikeRepository;
 import com.example.be_velog_team11.utils.S3Uploader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import java.io.IOException;
 @Service
 public class BoardService {
     private final BoardRepository boardRepository;
+    private final LikeRepository likeRepository;
     private final S3Uploader s3Uploader;
 
     private final String imageDirName = "static";   // S3 폴더 경로
@@ -66,7 +68,7 @@ public class BoardService {
                 .nickname(findBoard.getUser().getNickname())
                 .createdAt(findBoard.getCreatedAt())
                 //like필요
-
+                .like(likeRepository.countByBoard(findBoard).get())
                 .build();
     }
 
