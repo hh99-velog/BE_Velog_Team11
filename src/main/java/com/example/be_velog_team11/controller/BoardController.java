@@ -22,6 +22,7 @@ public class BoardController {
             @RequestPart(value = "data") BoardRequestDto boardRequestDto,
             @RequestPart(value = "multipartFile", required = false) MultipartFile multipartFile
     ) throws IOException {
+        System.out.println(userDetails.getUser());
         boardService.saveBoard(userDetails.getUser(), boardRequestDto, multipartFile);
     }
 
