@@ -54,7 +54,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // h2-console 사용에 대한 허용 (CSRF, FrameOptions 무시)
         web
                 .ignoring()
-                .antMatchers("/h2-console/**");
+                .antMatchers("/h2-console/**")
+                .antMatchers("/v2/api-docs", "/swagger-resources/**", "**/swagger-resources/**", "/swagger-ui.html", "/webjars/**", "/swagger/**");     // Swagger
+
     }
 
     @Override
@@ -77,6 +79,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class);
 
         http.authorizeRequests()
+                .antMatchers("/v2/api-docs", "/swagger-resources/**", "**/swagger-resources/**", "/swagger-ui.html", "/webjars/**", "/swagger/**").permitAll()      // Swagger
                 .anyRequest()
                 .permitAll()
                 .and()
@@ -125,6 +128,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         skipPathList.add("POST,/user/signup");
         //게시글 관리 API 허용
         skipPathList.add("GET,/api/boards/detail/**");
+
+        // Swagger
+        skipPathList.add("GET, /swagger-ui.html");
+        skipPathList.add("GET, /swagger/**");
+        skipPathList.add("GET, /swagger-resources/**");
+        skipPathList.add("GET, /webjars/**");
+        skipPathList.add("GET, /v2/api-docs");
 
         skipPathList.add("GET,/");
         skipPathList.add("GET,/basic.js");
