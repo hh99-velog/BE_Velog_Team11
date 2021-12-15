@@ -1,6 +1,8 @@
 package com.example.be_velog_team11.service;
 
 import com.example.be_velog_team11.dto.SignupRequestDto;
+import com.example.be_velog_team11.exception.ErrorNotFoundBoardException;
+import com.example.be_velog_team11.exception.ErrorUtils.ErrorCode;
 import com.example.be_velog_team11.model.User;
 import com.example.be_velog_team11.repository.UserRepository;
 import com.example.be_velog_team11.validator.UserValidator;
@@ -17,6 +19,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
+
     @Transactional
     public void registerUser(SignupRequestDto requestDto) {
         String username = requestDto.getUsername();
@@ -27,13 +30,13 @@ public class UserService {
         // 회원 ID 중복 확인
         Optional<User> found = userRepository.findByUsername(username);
         if (found.isPresent()) {
-            throw new IllegalArgumentException("중복된 사용자 ID 가 존재합니다.");
+            throw new ErrorNotFoundBoardException(ErrorCode.ERROR_DUPLICATE_EMAIL);
         }
 
         // 닉네임 중복 확인
         Optional<User> found_nickname = userRepository.findByNickname(nickname);
         if (found_nickname.isPresent()) {
-            throw new IllegalArgumentException("중복된 닉네임이 존재합니다.");
+            throw new ErrorNotFoundBoardException(ErrorCode.ERROR_DUPLICATE_NICKNAME);
         }
 
         // 회원가입 유효성 검사

@@ -13,6 +13,7 @@ public enum ErrorCode {
     NOT_LOGIN(403,"로그인을 하지않으면 글 등록 할 수 없습니다."),
     ERROR_DUPLICATE_ID(400,"아이디 중복입니다"),
     ERROR_DUPLICATE_EMAIL(400,"이메일 중복입니다"),
+    ERROR_DUPLICATE_NICKNAME(400,"닉네임 중복입니다"),
     ERROR_USER_PASSWORD(404,"비밀번호가 일치하지 않습니다");
 
 
