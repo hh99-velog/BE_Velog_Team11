@@ -1,5 +1,6 @@
 package com.example.be_velog_team11.model;
 
+import com.example.be_velog_team11.dto.BoardRequestDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,4 +30,13 @@ public class Board extends Timestamped {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    // 게시글 수정 (제목, 내용, 이미지)
+    public void update(BoardRequestDto boardRequestDto, String imgUrl) {
+        this.title = boardRequestDto.getTitle();
+        this.content = boardRequestDto.getContent();
+        if (imgUrl != "") {
+            this.img = imgUrl;
+        }
+    }
 }
