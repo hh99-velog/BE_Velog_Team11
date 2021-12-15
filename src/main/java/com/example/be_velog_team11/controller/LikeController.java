@@ -3,6 +3,7 @@ package com.example.be_velog_team11.controller;
 import com.example.be_velog_team11.config.LoginUser;
 import com.example.be_velog_team11.model.User;
 import com.example.be_velog_team11.service.LikeService;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ public class LikeController {
 
     private final LikeService likeService;
 
+    @ApiOperation("좋아요 등록")
     @PostMapping("/like/{boardId}")
     public ResponseEntity<String> addLike(@LoginUser User loginUser,
                                           @PathVariable Long boardId) {
@@ -30,6 +32,7 @@ public class LikeController {
                 new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
+    @ApiOperation("좋아요 삭제")
     @DeleteMapping("/like/{boardId}")
     public ResponseEntity<String> cancelLike(@LoginUser User loginUser,
                                              @PathVariable Long boardId) {
@@ -39,6 +42,7 @@ public class LikeController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @ApiOperation("좋아요 조회, 카운트")
     @GetMapping("/like/{boardId}")
     public ResponseEntity<List<String>> getLikeCount(
             @LoginUser User loginUser,
