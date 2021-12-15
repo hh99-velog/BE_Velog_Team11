@@ -4,6 +4,7 @@ import com.example.be_velog_team11.dto.BoardRequestDto;
 import com.example.be_velog_team11.dto.BoardResponseDto;
 import com.example.be_velog_team11.security.UserDetailsImpl;
 import com.example.be_velog_team11.service.BoardService;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,7 @@ import java.io.IOException;
 public class BoardController {
     private final BoardService boardService;
 
+    @ApiOperation("게시글 작성")
     @PostMapping("/api/boards")
     public void boardUpload(
             @AuthenticationPrincipal UserDetailsImpl userDetails,
@@ -26,11 +28,13 @@ public class BoardController {
         boardService.saveBoard(userDetails.getUser(), boardRequestDto, multipartFile);
     }
 
+    @ApiOperation("게시글 상세조회")
     @GetMapping("/api/boards/detail/{board_id}")
     public BoardResponseDto boardGetDetail(@PathVariable Long board_id) {
         return boardService.findBoard(board_id);
     }
 
+    @ApiOperation("게시글 수정")
     @PutMapping("/api/boards/detail/{board_id}")
     public void boardUpdate(
             @AuthenticationPrincipal UserDetailsImpl userDetails,
@@ -41,6 +45,7 @@ public class BoardController {
         boardService.modifyBoard(userDetails.getUser(), board_id, boardRequestDto, multipartFile);
     }
 
+    @ApiOperation("게시글 삭제")
     @DeleteMapping("/api/boards/detail/{board_id}")
     public void boardDelete(
             @AuthenticationPrincipal UserDetailsImpl userDetails,
