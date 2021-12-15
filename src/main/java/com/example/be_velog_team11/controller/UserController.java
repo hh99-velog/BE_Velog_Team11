@@ -2,6 +2,7 @@ package com.example.be_velog_team11.controller;
 
 import com.example.be_velog_team11.dto.SignupRequestDto;
 import com.example.be_velog_team11.service.UserService;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,7 +14,7 @@ public class UserController {
 
     private final UserService userService;
 
-    // 회원 가입 요청 처리
+    @ApiOperation("회원가입 요청 처리")
     @PostMapping("/user/signup")
     public void registerUser(@RequestBody SignupRequestDto signupRequestDto) {
         userService.registerUser(signupRequestDto);
@@ -27,13 +28,13 @@ public class UserController {
 //        return "완료";
 //    }
 
-    //Email 중복확인
+    @ApiOperation("ID(Email) 중복확인")
     @PostMapping("/user/id/duplicate")
     public boolean usernameCheck(@RequestBody String username) {
         return userService.usernameCheck(username);
     }
 
-    //nickname 중복확인
+    @ApiOperation("nickname 중복확인")
     @PostMapping("/user/nickname/duplicate")
     public boolean nicknameCheck(@RequestBody String nickname) {
         return userService.nicknameCheck(nickname);
