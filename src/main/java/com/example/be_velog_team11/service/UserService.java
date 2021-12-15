@@ -45,4 +45,14 @@ public class UserService {
         User user = new User(username, nickname, encodePassword);
         userRepository.save(user);
     }
+
+    // username 중복체크
+    public boolean usernameCheck(String username) {
+        return userRepository.existsByUsername(username);
+    }
+
+    // nickname 중복체크
+    public boolean nicknameCheck(String nickname) {
+        return userRepository.existsByNickname(nickname);
+    }
 }

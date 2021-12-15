@@ -23,10 +23,22 @@ public class UserController {
 
     // 회원 로그인 처리 (스프링 시큐리티에서 처리)
     // loginview
-    @ResponseBody
-    @GetMapping("/user/loginView")
-    public String test() {
-        return "완료";
+//    @ResponseBody
+//    @GetMapping("/user/loginView")
+//    public String test() {
+//        return "완료";
+//    }
+
+    //Email 중복확인
+    @PostMapping("/user/id/duplicate")
+    public boolean usernameCheck(@RequestBody String username) {
+        return userService.usernameCheck(username);
+    }
+
+    //nickname 중복확인
+    @PostMapping("/user/nickname/duplicate")
+    public boolean nicknameCheck(@RequestBody String nickname) {
+        return userService.nicknameCheck(nickname);
     }
 
 }
