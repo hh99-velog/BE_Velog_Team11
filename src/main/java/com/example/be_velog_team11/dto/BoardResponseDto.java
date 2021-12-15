@@ -18,5 +18,5 @@ public class BoardResponseDto {
     private String img;             // 이미지
     private String nickname;        // 닉네임
     private LocalDateTime createdAt;// 생성날짜
-    private Long like;              // 좋아요 수
+    private int like;              // 좋아요 수
 }
