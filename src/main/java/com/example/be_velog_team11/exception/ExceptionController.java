@@ -34,6 +34,16 @@ public class ExceptionController {
                 .build();
     }
 
+    @ExceptionHandler(ErrorNotFoundLikeException.class)
+    public ErrorResponse LikeException(CustomException ex) {
+        return ErrorResponse.builder()
+                .code(HttpStatus.NOT_FOUND)
+                .message(ex.getErrorCode().getMessage())
+                .status(ex.getErrorCode().getStatus())
+                .timestamp(LocalDateTime.now())
+                .build();
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ErrorResponse processValidationError(MethodArgumentNotValidException exception) {
         BindingResult bindingResult = exception.getBindingResult();
