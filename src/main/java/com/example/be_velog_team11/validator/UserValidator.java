@@ -1,5 +1,7 @@
 package com.example.be_velog_team11.validator;
 
+import com.example.be_velog_team11.exception.ErrorNotFoundUserException;
+import com.example.be_velog_team11.exception.ErrorUtils.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -21,22 +23,21 @@ public class UserValidator {
 
         //아이디 검사
         if(username == null || !Pattern.matches(patternId, username)){
-            throw new IllegalArgumentException("이메일 형식이 아닙니다.");
+            throw new ErrorNotFoundUserException(ErrorCode.ERROR_DUPLICATE_EMAIL);
         }
 
         //닉네임 검사
         if (nickname == null || !Pattern.matches(patternNick, nickname)) {
-            throw new IllegalArgumentException("닉네임은 문자,숫자 포함 3-10자 이내로 입력해주세요.");
+            throw new ErrorNotFoundUserException(ErrorCode.ERROR_DUPLICATE_NICKNAME);
         }
 
         //비밀번호 확인
         if (password == null || !Pattern.matches(patternpw, password)) {
-            throw new IllegalArgumentException(
-                    "비밀번호는 영문 대소문자, 숫자 포함 4~12자 이내로 입력해주세요.");
+            throw new ErrorNotFoundUserException(ErrorCode.ERROR_USER_PASSWORD);
         }
 
         if (!password.equals(passwordConfirm)) {
-            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+            throw new ErrorNotFoundUserException(ErrorCode.ERROR_USER_PASSWORD);
         }
     }
 }

@@ -5,15 +5,16 @@ import com.example.be_velog_team11.model.User;
 import com.example.be_velog_team11.service.LikeService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-import java.util.Objects;
+
 
 @RestController
 @RequiredArgsConstructor
+@Slf4j
 @RequestMapping("/api")
 public class LikeController {
 
@@ -23,10 +24,10 @@ public class LikeController {
     @PostMapping("/like/{boardId}")
     public ResponseEntity<String> addLike(@LoginUser User loginUser,
                                           @PathVariable Long boardId) {
+        log.info("login_user_id={}",loginUser.getId());
         boolean result = false;
 
-        if (Objects.nonNull(loginUser))
-            result = likeService.addLike(loginUser, boardId);
+        result = likeService.addLike(loginUser, boardId);
 
         return result ?
                 new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -36,8 +37,8 @@ public class LikeController {
     @DeleteMapping("/like/{boardId}")
     public ResponseEntity<String> cancelLike(@LoginUser User loginUser,
                                              @PathVariable Long boardId) {
-        if (loginUser != null)
-            likeService.cancelLike(loginUser, boardId);
+        log.info("login_user_id={}",loginUser.getId());
+        likeService.cancelLike(loginUser, boardId);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -48,6 +49,7 @@ public class LikeController {
             @LoginUser User loginUser,
             @PathVariable Long boardId
     ) {
+        log.info("login_user_id={}",loginUser.getId());
         List<String> resultData
                 = likeService.count(loginUser, boardId);
 

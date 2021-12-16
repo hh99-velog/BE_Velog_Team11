@@ -9,20 +9,21 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.List;
 
+@Slf4j
 @RequiredArgsConstructor
 @RestController
 public class BoardController {
     private final BoardService boardService;
 
     @ApiOperation("게시글 전체조회")
-    @GetMapping("/api/boards/All")
+    @GetMapping("/api/boards")
     public Result<?> boardAllSearch(){
         return new Result<>(boardService.findAll());
     }
@@ -34,12 +35,15 @@ public class BoardController {
             @RequestPart(value = "data") BoardRequestDto boardRequestDto,
             @RequestPart(value = "multipartFile", required = false) MultipartFile multipartFile
     ) throws IOException {
+        log.info("board_write ={}",boardRequestDto);
+        log.info("multipartFile={}",multipartFile.getOriginalFilename());
         boardService.saveBoard(userDetails.getUser(), boardRequestDto, multipartFile);
     }
 
     @ApiOperation("게시글 상세조회")
     @GetMapping("/api/boards/detail/{board_id}")
     public BoardResponseDto boardGetDetail(@PathVariable Long board_id) {
+        log.info("board_id={}",board_id);
         return boardService.findBoard(board_id);
     }
 
@@ -51,6 +55,8 @@ public class BoardController {
             @RequestPart(value = "data") BoardRequestDto boardRequestDto,
             @RequestPart(value = "multipartFile", required = false) MultipartFile multipartFile
     ) throws IOException {
+        log.info("MultipartFile_update={}",multipartFile);
+        log.info("board_update_data={}",boardRequestDto);;
         boardService.modifyBoard(userDetails.getUser(), board_id, boardRequestDto, multipartFile);
     }
 
@@ -60,6 +66,7 @@ public class BoardController {
             @AuthenticationPrincipal UserDetailsImpl userDetails,
             @PathVariable Long board_id
     ) {
+        log.info("board_delete={}",board_id);
         boardService.deleteBoard(userDetails.getUser(), board_id);
     }
 
