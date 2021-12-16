@@ -1,6 +1,6 @@
 package com.example.be_velog_team11.service;
 
-import com.example.be_velog_team11.dto.SignupRequestDto;
+import com.example.be_velog_team11.dto.request.SignupRequestDto;
 import com.example.be_velog_team11.exception.ErrorNotFoundBoardException;
 import com.example.be_velog_team11.exception.ErrorUtils.ErrorCode;
 import com.example.be_velog_team11.model.User;
