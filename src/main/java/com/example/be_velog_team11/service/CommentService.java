@@ -1,5 +1,6 @@
 package com.example.be_velog_team11.service;
 
+
 import com.example.be_velog_team11.dto.request.CommentRequestDto;
 import com.example.be_velog_team11.dto.response.CommentResponseDto;
 import com.example.be_velog_team11.exception.ErrorNotFoundBoardException;
@@ -18,10 +19,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
-@Transactional(readOnly = true)
+
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
+@Service
 public class CommentService {
+
 
     private final BoardRepository boardRepository;
     private final CommentRepository commentRepository;
@@ -45,6 +48,7 @@ public class CommentService {
 
         return comments;
     }
+
 
     @Transactional
     public void comment(Long board_id, User user, CommentRequestDto commentRequestDto) {
