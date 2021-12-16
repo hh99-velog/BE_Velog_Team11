@@ -1,7 +1,7 @@
 package com.example.be_velog_team11.service;
 
-import com.example.be_velog_team11.dto.BoardRequestDto;
-import com.example.be_velog_team11.dto.BoardResponseDto;
+import com.example.be_velog_team11.dto.request.BoardRequestDto;
+import com.example.be_velog_team11.dto.response.BoardResponseDto;
 import com.example.be_velog_team11.exception.ErrorNotFoundBoardException;
 import com.example.be_velog_team11.exception.ErrorUtils.ErrorCode;
 import com.example.be_velog_team11.model.Board;
@@ -11,12 +11,15 @@ import com.example.be_velog_team11.repository.LikeRepository;
 import com.example.be_velog_team11.utils.S3Uploader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.transaction.Transactional;
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 @Service
 public class BoardService {
     private final BoardRepository boardRepository;
@@ -52,7 +55,6 @@ public class BoardService {
     }
 
     // 게시글 상세 조회
-    @Transactional
     public BoardResponseDto findBoard(Long board_id) {
         // board_id 조회
         Board findBoard = boardRepository.findById(board_id).orElseThrow(
@@ -66,7 +68,7 @@ public class BoardService {
                 .content(findBoard.getContent())
                 .img(findBoard.getImg())
                 .nickname(findBoard.getUser().getNickname())
-                .createdAt(findBoard.getCreatedAt())
+                .createdAt(String.valueOf(findBoard.getCreatedAt()))
                 //like필요
                 .like(likeRepository.countByBoard(findBoard).get())
                 .build();
@@ -122,5 +124,10 @@ public class BoardService {
 
         // Board DB 삭제
         boardRepository.deleteById(board_id);
+    }
+
+    public List<BoardResponseDto> findAll() {
+        List<Board> boardData = boardRepository.findAll();
+        return boardData.stream().map(s -> new BoardResponseDto(s.getId(),s.getTitle(),s.getContent(),s.getUser().getNickname(),s.getImg(),String.valueOf(s.getCreatedAt()),likeRepository.countByBoard(s).orElse(0))).collect(Collectors.toList());
     }
 }
