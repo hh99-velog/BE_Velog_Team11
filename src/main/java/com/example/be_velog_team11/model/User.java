@@ -1,13 +1,10 @@
 package com.example.be_velog_team11.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Setter
+@Builder
 @Getter // get 함수를 일괄적으로 만들어줍니다.
 @AllArgsConstructor
 @NoArgsConstructor // 기본 생성자를 만들어줍니다.
