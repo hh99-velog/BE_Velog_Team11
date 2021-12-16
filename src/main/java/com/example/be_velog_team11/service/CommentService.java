@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class CommentService {
 
+     private final BoardRepository boardRepository;
     private final CommentRepository commentRepository;
 
     @Transactional
@@ -24,5 +25,26 @@ public class CommentService {
             throw new ErrorNotFoundUserException(ErrorCode.ERROR_NOTMATCH_COMMENT_MODIFY);
 
         commentRepository.delete(comment);
+
+
+
+    public List<CommentResponseDto> getAllComments(Long board_id) {
+        Board findBoard = boardRepository.findById(board_id).orElseThrow(
+                () -> new ErrorNotFoundBoardException(ErrorCode.ERROR_BOARD_ID)
+        );
+
+        List<Comment> commentList = commentRepository.findAllByBoardOrderByCreatedAtDesc(findBoard);
+        List<CommentResponseDto> comments = new ArrayList<>();
+        for (Comment com : commentList) {
+            CommentResponseDto commentResponseDto = CommentResponseDto.builder()
+                                                        .nickname(com.getUser().getNickname())
+                                                        .content(com.getContent())
+                                                        .createdAt(com.getCreatedAt())
+                                                        .build();
+
+            comments.add(commentResponseDto);
+        }
+
+        return comments;
     }
 }
