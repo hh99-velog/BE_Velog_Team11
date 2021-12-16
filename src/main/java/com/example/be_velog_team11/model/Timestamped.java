@@ -7,7 +7,10 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Getter
 @MappedSuperclass // 이 클래스를 상속해서 사용하면, 사용된걸 컬럼으로 인식해랏!!
@@ -15,9 +18,22 @@ import java.time.LocalDateTime;
 public abstract class Timestamped {
 
     @CreatedDate // 생성일자임을 나타냄
-    private LocalDateTime createdAt;
+    private String createdAt;
 
     @LastModifiedDate // 마지막 수정일자임을 나타냄
-    private LocalDateTime modifiedAt;
+    private String modifiedAt;
+
+    //insert 되기전에 date 날짜 형식 변환
+    @PrePersist
+    public void onPrePersist(){
+        this.createdAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+        this.modifiedAt = this.modifiedAt;
+    }
+
+    //update 되기 전에 date 날짜 형식 변환
+    @PreUpdate
+    public void onPreUpdate(){
+        this.modifiedAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
+    }
 }
 

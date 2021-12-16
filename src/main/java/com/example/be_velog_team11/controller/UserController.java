@@ -4,12 +4,12 @@ import com.example.be_velog_team11.dto.request.SignupRequestDto;
 import com.example.be_velog_team11.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RequiredArgsConstructor
-@Controller
+@RestController
 public class UserController {
 
     private final UserService userService;
@@ -20,22 +20,24 @@ public class UserController {
         return "완료";
     }*/
 
+
     @ApiOperation("회원가입 요청 처리")
     @PostMapping("/user/signup")
     public void registerUser(@RequestBody SignupRequestDto signupRequestDto) {
+        log.info("user_login={}",signupRequestDto.toString());
         userService.registerUser(signupRequestDto);
     }
 
     @ApiOperation("ID(Email) 중복확인")
     @PostMapping("/user/id/duplicate")
-    public boolean usernameCheck(@RequestBody String username) {
-        return userService.usernameCheck(username);
+    public boolean usernameCheck(@RequestBody SignupRequestDto signupRequestDto) {
+        return userService.usernameCheck(signupRequestDto.getUsername());
     }
 
     @ApiOperation("nickname 중복확인")
     @PostMapping("/user/nickname/duplicate")
-    public boolean nicknameCheck(@RequestBody String nickname) {
-        return userService.nicknameCheck(nickname);
+    public boolean nicknameCheck(@RequestBody SignupRequestDto signupRequestDto) {
+        return userService.nicknameCheck(signupRequestDto.getNickname());
     }
 
 }

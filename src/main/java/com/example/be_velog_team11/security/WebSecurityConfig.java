@@ -87,8 +87,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/v2/api-docs", "/swagger-resources/**", "**/swagger-resources/**", "/swagger-ui.html", "/webjars/**", "/swagger/**").permitAll()      // Swagger
                 .antMatchers(HttpMethod.GET,"/api/boards/detail/{board_id}").permitAll()
-                .antMatchers(HttpMethod.GET,"/api/boards/All").permitAll()
-                .antMatchers(HttpMethod.POST,"/user/signup","/user/id/duplicate","/user/nickname/duplicate").permitAll()
+                .antMatchers(HttpMethod.GET,"/api/boards").permitAll()
+                .antMatchers(HttpMethod.POST,"/user/signup","/user/id/duplicate","/user/nickname/duplicate","/user/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 // [로그아웃 기능]
@@ -132,9 +132,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         skipPathList.add("POST,/h2-console/**");
         // 회원 관리 API 허용
         skipPathList.add("GET,/api/boards/detail/{board_id}");
-        skipPathList.add("GET,/api/boards/All");
-        skipPathList.add("POST,/user/signup");
-        skipPathList.add("GET,/user/id/duplicate");
+        skipPathList.add("GET,/api/boards");
+        skipPathList.add("POST,/user/id/duplicate");
+        skipPathList.add("POST,/user/nickname/duplicate");
+        skipPathList.add("POST,/user/login");
         skipPathList.add("GET,/user/**");
         skipPathList.add("POST,/user/signup");
         //게시글 관리 API 허용
