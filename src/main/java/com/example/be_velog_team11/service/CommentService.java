@@ -1,6 +1,7 @@
 package com.example.be_velog_team11.service;
 
 
+import com.example.be_velog_team11.dto.request.CommentRequestDto;
 import com.example.be_velog_team11.dto.response.CommentResponseDto;
 import com.example.be_velog_team11.exception.ErrorNotFoundBoardException;
 import com.example.be_velog_team11.exception.ErrorNotFoundCommentException;
@@ -23,7 +24,7 @@ import java.util.List;
 @Transactional(readOnly = true)
 @Service
 public class CommentService {
- 
+
 
     private final BoardRepository boardRepository;
     private final CommentRepository commentRepository;
@@ -48,7 +49,7 @@ public class CommentService {
         return comments;
     }
 
-  
+
     @Transactional
     public void comment(Long board_id, User user, CommentRequestDto commentRequestDto) {
         // board_id 조회
