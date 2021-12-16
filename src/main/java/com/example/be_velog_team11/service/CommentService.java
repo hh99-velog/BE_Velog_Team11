@@ -1,6 +1,7 @@
 package com.example.be_velog_team11.service;
 
 
+import com.example.be_velog_team11.dto.request.CommentRequestDto;
 import com.example.be_velog_team11.dto.response.CommentResponseDto;
 import com.example.be_velog_team11.exception.ErrorNotFoundBoardException;
 import com.example.be_velog_team11.exception.ErrorNotFoundCommentException;
