@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -22,7 +21,7 @@ public class BoardController {
     private final BoardService boardService;
 
     @ApiOperation("게시글 전체조회")
-    @GetMapping("/api/boards/All")
+    @GetMapping("/api/boards")
     public Result<?> boardAllSearch(){
         return new Result<>(boardService.findAll());
     }
