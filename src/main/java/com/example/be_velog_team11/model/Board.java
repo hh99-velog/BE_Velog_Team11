@@ -1,6 +1,6 @@
 package com.example.be_velog_team11.model;
 
-import com.example.be_velog_team11.dto.BoardRequestDto;
+import com.example.be_velog_team11.dto.request.BoardRequestDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

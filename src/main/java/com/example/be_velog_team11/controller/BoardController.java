@@ -1,7 +1,7 @@
 package com.example.be_velog_team11.controller;
 
-import com.example.be_velog_team11.dto.BoardRequestDto;
-import com.example.be_velog_team11.dto.BoardResponseDto;
+import com.example.be_velog_team11.dto.request.BoardRequestDto;
+import com.example.be_velog_team11.dto.response.BoardResponseDto;
 import com.example.be_velog_team11.security.UserDetailsImpl;
 import com.example.be_velog_team11.service.BoardService;
 import io.swagger.annotations.ApiOperation;
@@ -11,11 +11,18 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
 public class BoardController {
     private final BoardService boardService;
+
+    @ApiOperation("게시글 전체조회")
+    @GetMapping("/api/boards/All")
+    public List<BoardResponseDto> boardAllSearch(){
+        return boardService.findAll();
+    }
 
     @ApiOperation("게시글 작성")
     @PostMapping("/api/boards")
@@ -24,7 +31,6 @@ public class BoardController {
             @RequestPart(value = "data") BoardRequestDto boardRequestDto,
             @RequestPart(value = "multipartFile", required = false) MultipartFile multipartFile
     ) throws IOException {
-        System.out.println(userDetails.getUser());
         boardService.saveBoard(userDetails.getUser(), boardRequestDto, multipartFile);
     }
 
