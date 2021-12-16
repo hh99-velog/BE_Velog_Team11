@@ -11,9 +11,10 @@ spring:
     url: jdbc:h2:mem:testdb
     username: sa
     password:
+
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
 
     properties:
       hibernate:
