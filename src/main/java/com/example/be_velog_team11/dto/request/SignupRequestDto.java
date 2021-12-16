@@ -1,11 +1,9 @@
 package com.example.be_velog_team11.dto.request;
 
 import com.sun.istack.NotNull;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Setter
-@Getter
+@Data
 public class SignupRequestDto {
     @NotNull
     private String username;
@@ -18,4 +16,6 @@ public class SignupRequestDto {
 
     @NotNull
     private String passwordConfirm;
+
+
 }
