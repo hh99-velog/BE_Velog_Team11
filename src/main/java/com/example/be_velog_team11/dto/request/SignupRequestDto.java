@@ -1,4 +1,4 @@
-package com.example.be_velog_team11.dto;
+package com.example.be_velog_team11.dto.request;
 
 import com.sun.istack.NotNull;
 import lombok.Getter;

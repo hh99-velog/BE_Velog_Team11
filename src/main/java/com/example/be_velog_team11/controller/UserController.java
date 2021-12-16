@@ -1,6 +1,6 @@
 package com.example.be_velog_team11.controller;
 
-import com.example.be_velog_team11.dto.SignupRequestDto;
+import com.example.be_velog_team11.dto.request.SignupRequestDto;
 import com.example.be_velog_team11.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -14,19 +14,17 @@ public class UserController {
 
     private final UserService userService;
 
+/*    @GetMapping("/user/loginView")
+    @ResponseBody
+    public String test() {
+        return "완료";
+    }*/
+
     @ApiOperation("회원가입 요청 처리")
     @PostMapping("/user/signup")
     public void registerUser(@RequestBody SignupRequestDto signupRequestDto) {
         userService.registerUser(signupRequestDto);
     }
-
-    // 회원 로그인 처리 (스프링 시큐리티에서 처리)
-    // loginview
-//    @ResponseBody
-//    @GetMapping("/user/loginView")
-//    public String test() {
-//        return "완료";
-//    }
 
     @ApiOperation("ID(Email) 중복확인")
     @PostMapping("/user/id/duplicate")

@@ -86,7 +86,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/v2/api-docs", "/swagger-resources/**", "**/swagger-resources/**", "/swagger-ui.html", "/webjars/**", "/swagger/**").permitAll()      // Swagger
-                .antMatchers(HttpMethod.GET,"/api/boards/detail/{board_id}").permitAll()
+                .antMatchers(HttpMethod.GET,"/api/boards/detail/{board_id}","/api/boards/All").permitAll()
                 .antMatchers(HttpMethod.POST,"/user/signup","/user/id/duplicate","/user/nickname/duplicate").permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -171,9 +171,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowCredentials(true); //내 서버가 응답을 할때 json을 자바스크립트에서 처리할 수 있게 할지를 설정.
-        configuration.addAllowedOrigin("http://localhost:3000"); // local 테스트 시
-        configuration.addAllowedOrigin("https://velog-bucket-s3.s3.ap-northeast-2.amazonaws.com"); // 배포 시
+        //configuration.setAllowCredentials(true); //내 서버가 응답을 할때 json을 자바스크립트에서 처리할 수 있게 할지를 설정.
+        configuration.addAllowedOrigin("*"); // 배포 시
         configuration.addAllowedMethod("*");
         configuration.addAllowedHeader("*");
         configuration.addExposedHeader("Authorization");//구글링을 해보니 CORS의 경우 기본적으로 화면에서 response header 값을 읽지 못한다고 한다.
