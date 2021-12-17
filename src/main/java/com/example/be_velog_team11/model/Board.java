@@ -7,6 +7,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Builder
 @Getter
@@ -30,6 +34,12 @@ public class Board extends Timestamped {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    @OneToMany(mappedBy = "board" , cascade = CascadeType.ALL)
+    private final List<Comment> commentList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "board" , cascade = CascadeType.ALL)
+    private final Set<Likes> likes = new HashSet<>();
 
     // 게시글 수정 (제목, 내용, 이미지)
     public void update(BoardRequestDto boardRequestDto, String imgUrl) {
