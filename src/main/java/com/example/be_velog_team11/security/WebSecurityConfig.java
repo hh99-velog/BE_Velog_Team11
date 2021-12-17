@@ -183,6 +183,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         configuration.addAllowedMethod("*");
         configuration.addAllowedHeader("*");
         configuration.addExposedHeader("Authorization");//구글링을 해보니 CORS의 경우 기본적으로 화면에서 response header 값을 읽지 못한다고 한다.
+        configuration.addExposedHeader("Nickname");//구글링을 해보니 CORS의 경우 기본적으로 화면에서 response header 값을 읽지 못한다고 한다.
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
