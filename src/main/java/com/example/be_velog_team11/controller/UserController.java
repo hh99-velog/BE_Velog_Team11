@@ -14,13 +14,6 @@ public class UserController {
 
     private final UserService userService;
 
-/*    @GetMapping("/user/loginView")
-    @ResponseBody
-    public String test() {
-        return "완료";
-    }*/
-
-
     @ApiOperation("회원가입 요청 처리")
     @PostMapping("/user/signup")
     public void registerUser(@RequestBody SignupRequestDto signupRequestDto) {
