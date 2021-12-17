@@ -2,11 +2,14 @@ package com.example.be_velog_team11.service;
 
 import com.example.be_velog_team11.dto.request.BoardRequestDto;
 import com.example.be_velog_team11.dto.response.BoardResponseDto;
+import com.example.be_velog_team11.dto.response.CommentResponseDto;
 import com.example.be_velog_team11.exception.ErrorNotFoundBoardException;
 import com.example.be_velog_team11.exception.ErrorUtils.ErrorCode;
 import com.example.be_velog_team11.model.Board;
+import com.example.be_velog_team11.model.Comment;
 import com.example.be_velog_team11.model.User;
 import com.example.be_velog_team11.repository.BoardRepository;
+import com.example.be_velog_team11.repository.CommentRepository;
 import com.example.be_velog_team11.repository.LikeRepository;
 import com.example.be_velog_team11.utils.S3Uploader;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +27,7 @@ import java.util.stream.Collectors;
 public class BoardService {
     private final BoardRepository boardRepository;
     private final LikeRepository likeRepository;
+    private final CommentRepository commentRepository;
     private final S3Uploader s3Uploader;
 
     private final String imageDirName = "static";   // S3 폴더 경로
@@ -61,6 +65,14 @@ public class BoardService {
                 () -> new ErrorNotFoundBoardException(ErrorCode.ERROR_BOARD_ID)
         );
 
+        List<Comment> allByBoardOrderByCreatedAtDesc = commentRepository.findAllByBoardOrderByCreatedAtDesc(findBoard);
+        List<CommentResponseDto> collect = allByBoardOrderByCreatedAtDesc.stream().map(s -> {
+            return CommentResponseDto.builder()
+                    .nickname(s.getUser().getNickname())
+                    .content(s.getContent())
+                    .createdAt(String.valueOf(s.getCreatedAt()))
+                    .build();
+        }).collect(Collectors.toList());
         // Response Dto 반환
         return BoardResponseDto.builder()
                 .id(findBoard.getId())
@@ -71,6 +83,7 @@ public class BoardService {
                 .createdAt(String.valueOf(findBoard.getCreatedAt()))
                 //like필요
                 .like(likeRepository.countByBoard(findBoard).get())
+                .commentResponseDtoList(collect)
                 .build();
     }
 
@@ -129,5 +142,6 @@ public class BoardService {
     public List<BoardResponseDto> findAll() {
         List<Board> boardData = boardRepository.findAll();
         return boardData.stream().map(s -> new BoardResponseDto(s.getId(),s.getTitle(),s.getContent(),s.getUser().getNickname(),s.getImg(),String.valueOf(s.getCreatedAt()),likeRepository.countByBoard(s).orElse(0))).collect(Collectors.toList());
+
     }
 }
