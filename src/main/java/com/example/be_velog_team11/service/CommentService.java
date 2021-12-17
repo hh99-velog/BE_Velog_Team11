@@ -29,26 +29,6 @@ public class CommentService {
     private final BoardRepository boardRepository;
     private final CommentRepository commentRepository;
 
-    public List<CommentResponseDto> getAllComments(Long board_id) {
-        Board findBoard = boardRepository.findById(board_id).orElseThrow(
-                () -> new ErrorNotFoundBoardException(ErrorCode.ERROR_BOARD_ID)
-        );
-
-        List<Comment> commentList = commentRepository.findAllByBoardOrderByCreatedAtDesc(findBoard);
-        List<CommentResponseDto> comments = new ArrayList<>();
-        for (Comment com : commentList) {
-            CommentResponseDto commentResponseDto = CommentResponseDto.builder()
-                    .nickname(com.getUser().getNickname())
-                    .content(com.getContent())
-                    .createdAt(com.getCreatedAt())
-                    .build();
-
-            comments.add(commentResponseDto);
-        }
-
-        return comments;
-    }
-
 
     @Transactional
     public void comment(Long board_id, User user, CommentRequestDto commentRequestDto) {

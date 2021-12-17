@@ -88,6 +88,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/v2/api-docs", "/swagger-resources/**", "**/swagger-resources/**", "/swagger-ui.html", "/webjars/**", "/swagger/**").permitAll()      // Swagger
                 .antMatchers(HttpMethod.GET,"/api/boards/detail/{board_id}").permitAll()
                 .antMatchers(HttpMethod.GET,"/api/boards").permitAll()
+                .antMatchers(HttpMethod.GET,"/api/board/detail/{board_id}/comment").permitAll()
                 .antMatchers(HttpMethod.POST,"/user/signup","/user/id/duplicate","/user/nickname/duplicate","/user/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -138,6 +139,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         skipPathList.add("POST,/user/login");
         skipPathList.add("GET,/user/**");
         skipPathList.add("POST,/user/signup");
+        skipPathList.add("GET,/api/board/detail/{board_id}/comment");
         //게시글 관리 API 허용
         skipPathList.add("GET,/api/boards/detail/**");
 
