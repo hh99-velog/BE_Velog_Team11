@@ -1,31 +1,28 @@
 # BE_Velog_Team11
 
-# 👀 Velog
-![](https://images.velog.io/images/bellpro/post/6fb24c2e-6af3-478b-84fa-ebb08e00ab5d/image.png)
-
-
->**velog 클론코딩**
+# 👀 Velog 클론코딩
+<img src="https://images.velog.io/images/bellpro/post/6fb24c2e-6af3-478b-84fa-ebb08e00ab5d/image.png"  width="100%">
 
 <br />   
   
-- [\[사이트 바로가기\]](http://interfere.s3-website.ap-northeast-2.amazonaws.com)  
-- [\[시연영상 구경하기\]](https://youtu.be/2x7vr6RrlzE)  
+- [\[사이트 바로가기\]](http://wordpad.s3-website.ap-northeast-2.amazonaws.com/)  
+- [\[시연영상 구경하기\]]()  
 
 <br />
 
 # 👥 멤버
-- Back-end: [김종욱](https://github.com/bellpro), [김주란](https://github.com/joorani), [오규화](https://github.com/59-devv)
-- Front-end: [신항민](https://github.com/ssinking91), [전용태](https://github.com/yong313), [정종찬](https://github.com/youHaveToDo)
+- Back-end: [김종욱](https://github.com/bellpro), [김우진](https://github.com/woojin126), [서유리](https://github.com/uriseozz)
+- Front-end: [정연재](https://github.com/jeongyeon9254), [윤석준]()
 - [\[Front-End Github\]](https://github.com/youHaveToDo/FE_interfereOfLove)
 <br />
 
 # 🗓 프로젝트 기간
-- 2021년 12월 6일 ~ 2021년 12월 11일 (6일 간)
+- 2021년 12월 12일 ~ 2021년 12월 18일 (6일 간)
 
 <br />
 
 # 🧩 와이어프레임
-<center><img src="https://user-images.githubusercontent.com/87135478/145660015-1941ac00-d700-4a32-b5d5-b39a7e4a545c.png" width="800"></center>
+<center><img src="https://images.velog.io/images/bellpro/post/0cec925a-8417-467e-9d51-9b7e1edb104c/image.png" width="800"></center>
 
 <br />
 
