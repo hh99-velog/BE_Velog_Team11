@@ -16,9 +16,9 @@ public class UserController {
 
     @ApiOperation("회원가입 요청 처리")
     @PostMapping("/user/signup")
-    public void registerUser(@RequestBody SignupRequestDto signupRequestDto) {
+    public Long registerUser(@RequestBody SignupRequestDto signupRequestDto) {
         log.info("user_login={}",signupRequestDto.toString());
-        userService.registerUser(signupRequestDto);
+        return userService.registerUser(signupRequestDto);
     }
 
     @ApiOperation("ID(Email) 중복확인")

@@ -34,7 +34,7 @@ public class BoardService {
 
     // 게시글 작성
     @Transactional
-    public void saveBoard(
+    public Long saveBoard(
             User user,
             BoardRequestDto boardRequestDto,
             MultipartFile multipartFile
@@ -56,6 +56,8 @@ public class BoardService {
 
         // Board DB 저장
         boardRepository.save(board);
+
+        return board.getId();
     }
 
     // 게시글 상세 조회
@@ -68,6 +70,7 @@ public class BoardService {
         List<Comment> allByBoardOrderByCreatedAtDesc = commentRepository.findAllByBoardOrderByCreatedAtDesc(findBoard);
         List<CommentResponseDto> collect = allByBoardOrderByCreatedAtDesc.stream().map(s -> {
             return CommentResponseDto.builder()
+                    .id(s.getId())
                     .nickname(s.getUser().getNickname())
                     .content(s.getContent())
                     .createdAt(String.valueOf(s.getCreatedAt()))

@@ -3,6 +3,7 @@ package com.example.be_velog_team11.controller;
 
 import com.example.be_velog_team11.config.LoginUser;
 import com.example.be_velog_team11.dto.request.CommentRequestDto;
+import com.example.be_velog_team11.dto.response.CommentResponseDto;
 import com.example.be_velog_team11.model.User;
 import com.example.be_velog_team11.security.UserDetailsImpl;
 import com.example.be_velog_team11.service.CommentService;
@@ -25,18 +26,18 @@ public class CommentController {
 
     @ApiOperation(value = "댓글 작성")
     @PostMapping("/api/board/comment/{board_id}")
-    public void createComment(@PathVariable Long board_id,
-                              @AuthenticationPrincipal UserDetailsImpl userDetails,
-                              @RequestBody CommentRequestDto commentRequestDto) {
+    public CommentResponseDto createComment(@PathVariable Long board_id,
+                                            @AuthenticationPrincipal UserDetailsImpl userDetails,
+                                            @RequestBody CommentRequestDto commentRequestDto) {
         log.info("comment_write={}",commentRequestDto);
-        commentService.comment(board_id, userDetails.getUser(),commentRequestDto);
+        return commentService.comment(board_id, userDetails.getUser(),commentRequestDto);
     }
 
     @ApiOperation(value = "댓글 삭제")
     @DeleteMapping("/api/board/detail/{comment_id}")
-    public void deleteComment(@PathVariable Long comment_id, @LoginUser User loginUser) {
+    public CommentResponseDto deleteComment(@PathVariable Long comment_id, @LoginUser User loginUser) {
         log.info("comment_delete={}",comment_id);
-        commentService.deleteComment(comment_id, loginUser);
+        return commentService.deleteComment(comment_id, loginUser);
     }
 
 }

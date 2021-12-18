@@ -1,11 +1,20 @@
 package com.example.be_velog_team11.dto.request;
 
-import com.sun.istack.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class SignupRequestDto {
     @NotNull
+    @Email
     private String username;
 
     @NotNull
