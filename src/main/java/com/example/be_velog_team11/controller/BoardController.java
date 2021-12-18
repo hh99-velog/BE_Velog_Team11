@@ -30,14 +30,14 @@ public class BoardController {
 
     @ApiOperation("게시글 작성")
     @PostMapping("/api/boards")
-    public void boardUpload(
+    public Long boardUpload(
             @AuthenticationPrincipal UserDetailsImpl userDetails,
             @RequestPart(value = "data") BoardRequestDto boardRequestDto,
             @RequestPart(value = "multipartFile", required = false) MultipartFile multipartFile
     ) throws IOException {
         log.info("board_write ={}",boardRequestDto);
         log.info("multipartFile={}",multipartFile.getOriginalFilename());
-        boardService.saveBoard(userDetails.getUser(), boardRequestDto, multipartFile);
+        return boardService.saveBoard(userDetails.getUser(), boardRequestDto, multipartFile);
     }
 
     @ApiOperation("게시글 상세조회")
