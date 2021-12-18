@@ -6,7 +6,7 @@
 <br />   
   
 - [\[사이트 바로가기\]](http://wordpad.s3-website.ap-northeast-2.amazonaws.com/)  
-- [\[시연영상 구경하기\]]()  
+- [\[시연영상 구경하기\]](https://www.youtube.com/watch?v=AyNuf-7WjU8)  
 
 <br />
 
