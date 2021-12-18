@@ -23,17 +23,17 @@ public class UserValidator {
 
         //아이디 검사
         if(username == null || !Pattern.matches(patternId, username)){
-            throw new ErrorNotFoundUserException(ErrorCode.ERROR_DUPLICATE_EMAIL);
+            throw new ErrorNotFoundUserException(ErrorCode.ERROR_TYPE_EMAIL);
         }
 
         //닉네임 검사
         if (nickname == null || !Pattern.matches(patternNick, nickname)) {
-            throw new ErrorNotFoundUserException(ErrorCode.ERROR_DUPLICATE_NICKNAME);
+            throw new ErrorNotFoundUserException(ErrorCode.ERROR_TYPE_NICKNAME);
         }
 
         //비밀번호 확인
         if (password == null || !Pattern.matches(patternpw, password)) {
-            throw new ErrorNotFoundUserException(ErrorCode.ERROR_USER_PASSWORD);
+            throw new ErrorNotFoundUserException(ErrorCode.ERROR_TYPE_PASSWORD);
         }
 
         if (!password.equals(passwordConfirm)) {
