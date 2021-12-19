@@ -14,12 +14,12 @@ public class UserController {
 
     private final UserService userService;
 
-    @ApiOperation("회원가입 요청 처리")
+ /*   @ApiOperation("회원가입 요청 처리")
     @PostMapping("/user/signup")
     public Long registerUser(@RequestBody SignupRequestDto signupRequestDto) {
         log.info("user_login={}",signupRequestDto.toString());
         return userService.registerUser(signupRequestDto);
-    }
+    }*/
 
     @ApiOperation("ID(Email) 중복확인")
     @PostMapping("/user/id/duplicate")
