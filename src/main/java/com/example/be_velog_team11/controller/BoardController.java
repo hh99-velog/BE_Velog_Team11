@@ -77,3 +77,4 @@ public class BoardController {
         T data;
     }
 }
+//리빌드되라 ㅠㅠ
