@@ -19,6 +19,7 @@ public class UserController {
     public Long registerUser(@RequestBody SignupRequestDto signupRequestDto) {
         log.info("user_login={}",signupRequestDto.toString());
         return userService.registerUser(signupRequestDto);
+        //test
     }
 
     @ApiOperation("ID(Email) 중복확인")
